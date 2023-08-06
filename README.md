@@ -39,6 +39,7 @@ $converted = $converter->toMarkdown($text);
 ## Authors
 
 Filippo F. Fadda - <filippo.fadda@programmazione.it> - <http://www.linkedin.com/in/filippofadda>
+
 Radim Mifka - <radimmifka@gmail.com>
 
 ## License
