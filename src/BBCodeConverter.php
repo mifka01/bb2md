@@ -8,6 +8,8 @@
  * @details
  *
  * @author Filippo F. Fadda, Radim Mifka
+ *
+ * @licence Apache-2.0 license
  */
 
 namespace mifka01\bb2md;
@@ -35,7 +37,6 @@ class BBCodeConverter
             function ($matches) {
                 return $matches[1];
             },
-
             $this->text
         );
     }
@@ -50,7 +51,6 @@ class BBCodeConverter
             function ($matches) {
                 return $matches[1];
             },
-
             $this->text
         );
     }
@@ -65,7 +65,6 @@ class BBCodeConverter
             function ($matches) {
                 return $matches[1];
             },
-
             $this->text
         );
     }
@@ -80,7 +79,6 @@ class BBCodeConverter
             function ($matches) {
                 return $matches[1];
             },
-
             $this->text
         );
     }
@@ -236,7 +234,6 @@ class BBCodeConverter
 
                 return $buffer;
             },
-
             $this->text
         );
     }
@@ -255,7 +252,6 @@ class BBCodeConverter
                     throw new \RuntimeException(sprintf("Text identified by '%d' has malformed BBCode urls", $this->id));
                 }
             },
-
             $this->text
         );
     }
@@ -274,7 +270,6 @@ class BBCodeConverter
                     throw new \RuntimeException(sprintf("Text identified by '%d' has malformed BBCode urls", $this->id));
                 }
             },
-
             $this->text
         );
     }
@@ -297,7 +292,6 @@ class BBCodeConverter
                     throw new \RuntimeException(sprintf("Text identified by '%d' have malformed BBCode images", $this->id));
                 }
             },
-
             $this->text
         );
     }
@@ -320,7 +314,6 @@ class BBCodeConverter
                     throw new \RuntimeException(sprintf("Text identified by '%d' have malformed BB2 images", $this->id));
                 }
             },
-
             $this->text
         );
     }
@@ -343,7 +336,6 @@ class BBCodeConverter
 
                 return '> ' . $quote . PHP_EOL . PHP_EOL;
             },
-
             $this->text
         );
     }
@@ -390,7 +382,6 @@ class BBCodeConverter
                     throw new \RuntimeException(sprintf("Text identified by '%d' has malformed BBCode snippet.", $this->id));
                 }
             },
-
             $this->text
         );
     }
