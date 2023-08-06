@@ -9,12 +9,12 @@ urls, images, quotes, BB2 images and even code blocks (snippets).
 
 To install bb2md, you first need to install [Composer](http://getcomposer.org/)
 
-## BB2MD Installation
+## bb2md Installation
 
-Once you have installed Composer, it's easy install Converter.
+Once you have installed Composer, it's easy install bb2md.
 
 ```
-composer require mifka01/bb2md "@dev"
+composer require mifka01/bb2md "dev-master"
 ```
 
 2. Run the following command in your project root dir:
