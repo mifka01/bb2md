@@ -28,8 +28,17 @@ composer update
 BBCode to Markdown conversion:
 
 ```php
-$converter = new Converter\BBCodeConverter();
-$converted = $converter->toMarkdown($text);
+use mifka01\bb2md\BBCodeConverter;
+
+$converter = new BBCodeConverter();
+$convertedText = $converter->toMarkdown($text);
+```
+
+Choose language for img alts:
+
+```php
+// available - en (default), cs
+$converter = new BBCodeConverter('cs');
 ```
 
 ## Requirements
