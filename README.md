@@ -44,4 +44,4 @@ Radim Mifka - <radimmifka@gmail.com>
 
 ## License
 
-Converter is licensed under the Apache License, Version 2.0 - see the LICENSE file for details.
+bb2md is licensed under the Apache License, Version 2.0 - see the LICENSE file for details.
