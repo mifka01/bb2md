@@ -317,9 +317,8 @@ class BBCodeConverter
             $this->text
         );
     }
-
     /**
-     * @brief Replaces BBCode quotes.
+     * @brief Replaces BBCode quotes and extracts the name.
      *
      * @details Thanks to Casimir et Hippolyte for helping me with this regex.
      */
@@ -328,13 +327,18 @@ class BBCodeConverter
         // Removes the inner quotes, leaving just one level.
         $this->text = preg_replace('~\G(?<!^)(?>(\[quote\b[^]]*](?>[^[]++|\[(?!/?quote)|(?1))*\[/quote])|(?<!\[)(?>[^[]++|\[(?!/?quote))+\K)|\[quote\b[^]]*]\K~', '', $this->text);
 
-        // Replaces all the remaining quotes with '> ' characters.
+        // Replaces all the remaining quotes with '> ' characters and includes the name if present.
         $this->text = preg_replace_callback(
-            '%\[quote\b[^]]*\]((?>[^[]++|\[(?!/?quote))*)\[/quote\]%i',
+            '%\[quote(?:=([^\]/]+))?/?\]((?>[^[]++|\[(?!/?quote))*)\[/quote\]%i',
             function ($matches) {
-                $quote = preg_replace('/^\s*/mu', '', trim($matches[1]));
+                $name = isset($matches[1]) ? $matches[1] : 'Quote'; // Default to 'Quote' if no name is given.
+                $quote = preg_replace('/^\s*/mu', '', trim($matches[2]));
 
-                return '> ' . $quote . PHP_EOL . PHP_EOL;
+                if ('cs' == $this->lang) {
+                    return "> {$name} **napsal/a:**\n> " . str_replace("\n", "\n> ", $quote) . PHP_EOL . PHP_EOL;
+                } else {
+                    return "> {$name} **wrote:**\n> " . str_replace("\n", "\n> ", $quote) . PHP_EOL . PHP_EOL;
+                }
             },
             $this->text
         );
