@@ -390,6 +390,63 @@ class BBCodeConverter
         );
     }
 
+    public function clean()
+    {
+        // Define a list of known BBCode tags and their variants
+        $bbcodeTags = [
+            'quote' => ['\[quote\]', '\[\/quote\]'],
+            'list' => ['\[list\]', '\[\/list\]'],
+            'img' => ['\[img\]', '\[\/img\]'],
+            'code' => ['\[code\]', '\[\/code\]'],
+            'url' => ['\[url\]', '\[\/url\]'],
+            'b' => ['\[b\]', '\[\/b\]'],
+            'i' => ['\[i\]', '\[\/i\]'],
+            'u' => ['\[u\]', '\[\/u\]'],
+            's' => ['\[s\]', '\[\/s\]'],
+            'center' => ['\[center\]', '\[\/center\]'],
+            'left' => ['\[left\]', '\[\/left\]'],
+            'color' => ['\[color\]', '\[\/color\]'],
+            'size' => ['\[size\]', '\[\/size\]'],
+        ];
+
+        // Prepare a regular expression to match all the BBCode tags
+        $pattern = '~(' . implode('|', array_merge(
+            array_map(function ($tag) {
+                return '(' . implode('|', $tag) . ')';
+            }, $bbcodeTags),
+            [
+                // Patterns for common misspellings and variations
+                '\[qoute\]', '\[quote\s*\]',
+                '\[lsit\]', '\[list\s*\]',
+                '\[imge\]', '\[img\s*\]',
+                '\[cde\]', '\[code\s*\]',
+                '\[ulr\]', '\[url\s*\]',
+                '\[b\s*\]', '\[b\s*\]',
+                '\[i\s*\]', '\[i\s*\]',
+                '\[u\s*\]', '\[u\s*\]',
+                '\[s\s*\]', '\[s\s*\]',
+                '\[ceneter\]', '\[center\s*\]',
+                '\[lef\]', '\[left\s*\]',
+                '\[colr\]', '\[color\s*\]',
+                '\[sze\]', '\[size\s*\]',
+                // Patterns for missing brackets
+                '\[quote\s*', '\[list\s*', '\[img\s*',
+                '\[code\s*', '\[url\s*', '\[b\s*',
+                '\[i\s*', '\[u\s*', '\[s\s*',
+                '\[center\s*', '\[left\s*', '\[color\s*',
+                '\[size\s*',
+                'quote\]', 'list\]', 'img\]',
+                'code\]', 'url\]', 'b\]',
+                'i\]', 'u\]', 's\]',
+                'center\]', 'left\]', 'color\]',
+                'size\]'
+            ]
+        )) . ')~i';
+
+        // Remove all identified tags
+        $this->text = preg_replace($pattern, '', $this->text);
+    }
+
     /**
      * @brief Converts the provided BBCode text to an equivalent Markdown text.
      */
@@ -411,6 +468,7 @@ class BBCodeConverter
         $this->replaceBB2Images();
         $this->replaceQuotes();
         $this->replaceSnippets();
+        $this->clean();
 
         return trim($this->text);
     }
